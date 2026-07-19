@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Das Fremde — a colony of robotic agents who create their own language.">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <title>Das Fremde | a project by Michael Spranger &amp; Stéphane Noël</title>
+  <style>
+    :root { --ink:#111; --muted:#818181; --header:90px; --max:1100px; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:#fff; font-family:Roboto,Arial,Helvetica,sans-serif; font-size:15px; font-weight:300; line-height:1.65; }
+    a { color:inherit; text-decoration:none; }
+    a:hover { color:#888; }
+    img { display:block; max-width:100%; }
+    header { position:fixed; z-index:20; inset:0 0 auto; height:var(--header); background:rgba(255,255,255,.97); }
+    .nav-wrap { width:calc(100% - 80px); max-width:1180px; height:100%; margin:auto; display:flex; align-items:center; justify-content:space-between; }
+    .brand img { width:225px; height:33px; object-fit:contain; }
+    nav { display:flex; align-items:center; gap:34px; }
+    nav a { position:relative; color:#777; font-size:15px; font-weight:400; white-space:nowrap; }
+    nav a::after { content:""; position:absolute; left:0; right:100%; bottom:-7px; height:1px; background:#111; transition:right .2s ease; }
+    nav a:hover, nav a.active { color:#111; }
+    nav a:hover::after, nav a.active::after { right:0; }
+    .menu-button { display:none; width:42px; height:42px; border:0; background:none; padding:10px; cursor:pointer; }
+    .menu-button span { display:block; height:2px; margin:5px 0; background:#111; }
+    section { scroll-margin-top:var(--header); }
+    #home { position:relative; z-index:0; height:100vh; min-height:560px; padding-top:var(--header); overflow:hidden; background:transparent; }
+    .hero { position:fixed; z-index:-1; inset:var(--header) 0 0; background:#050505 url("assets/supermafia.png") center center/cover no-repeat; }
+    #about, #dates, #press, #contact { position:relative; z-index:1; background:#fff; }
+    .container { width:calc(100% - 80px); max-width:var(--max); margin:auto; }
+    #about { padding:70px 0 130px; }
+    .about-grid { display:grid; grid-template-columns:1fr 1.04fr; gap:30px; align-items:start; }
+    .gallery { aspect-ratio:800/565; overflow:hidden; background:#111; }
+    .gallery-track { display:flex; width:400%; height:100%; animation:gallery-slide 21s infinite ease-in-out; }
+    .gallery img { flex:0 0 25%; width:25%; height:100%; object-fit:cover; }
+    @keyframes gallery-slide {
+      0%, 30% { transform:translateX(0); }
+      33%, 63% { transform:translateX(-25%); }
+      66%, 96% { transform:translateX(-50%); }
+      100% { transform:translateX(-75%); }
+    }
+    p { margin:0 0 22px; }
+    .credits { font-size:14px; line-height:1.7; }
+    .credits a, .event a, .bio a, .contact a { font-weight:500; }
+    #dates { padding:20px 0 85px; }
+    h2 { margin:0 0 12px; font-size:18px; font-weight:400; line-height:1.4; }
+    .event { margin:0 0 29px; }
+    .event h3 { margin:0 0 7px; color:var(--muted); font-size:17px; font-weight:300; line-height:1.45; }
+    .event p { margin:0; }
+    #press { padding:52px 0 150px; }
+    .press-list { list-style:none; margin:0; padding:0; }
+    .press-list li { margin:0 0 10px; }
+    .press-list a { font-weight:400; }
+    #contact { padding:20px 0 100px; }
+    .bios { display:grid; grid-template-columns:200px 1fr; gap:22px 82px; align-items:start; }
+    .bio-image { width:200px; height:200px; object-fit:cover; }
+    .bio { margin:0 0 38px; }
+    .contact { grid-column:1/-1; margin-top:4px; }
+    footer { height:60px; }
+    @media (max-width:850px) {
+      :root { --header:76px; }
+      .nav-wrap, .container { width:calc(100% - 40px); }
+      .brand img { width:190px; height:auto; }
+      .menu-button { display:block; }
+      nav { position:absolute; top:76px; left:0; right:0; display:none; padding:12px 20px 19px; gap:0; flex-direction:column; align-items:flex-start; background:#fff; border-top:1px solid #eee; }
+      nav.open { display:flex; }
+      nav a { width:100%; padding:10px 0; }
+      nav a::after { display:none; }
+      #home { min-height:430px; }
+      .about-grid { grid-template-columns:1fr; gap:30px; }
+      #about { padding:45px 0 80px; }
+      #press { padding-bottom:90px; }
+      .bios { grid-template-columns:160px 1fr; gap:25px; }
+      .bio-image { width:160px; height:160px; }
+    }
+    @media (max-width:560px) {
+      body { font-size:14px; }
+      .nav-wrap, .container { width:calc(100% - 30px); }
+      .brand img { width:168px; }
+      #home { height:72vh; min-height:410px; }
+      .hero { background-position:center; }
+      #about { padding-top:30px; }
+      #dates { padding-bottom:55px; }
+      #press { padding:35px 0 70px; }
+      .bios { display:block; }
+      .bio-image { width:150px; height:150px; margin:0 0 20px; }
+      .bio { margin-bottom:55px; }
+    }
+    @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a class="brand" href="#home" aria-label="Das Fremde home"><img src="assets/logo.png" alt="Das Fremde"></a>
+      <button class="menu-button" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav aria-label="Primary navigation">
+        <a href="#home">Home</a><a href="#about">About</a><a href="#dates">Dates</a><a href="#press">Press</a><a href="#contact">Bios &amp; Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" aria-label="Das Fremde"><div class="hero" role="img" aria-label="Das Fremde robotic installation"></div></section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="gallery" aria-label="Rotating installation photographs">
+          <div class="gallery-track">
+            <img src="assets/DasFremde@ZH-3.jpg" alt="Das Fremde installation in Zurich">
+            <img src="assets/DasFremde@ZH-1.jpg" alt="Das Fremde robotic agents">
+            <img src="assets/DasFremde@ZH-2.jpg" alt="Das Fremde installation detail">
+            <img src="assets/DasFremde@ZH-3.jpg" alt="" aria-hidden="true">
+          </div>
+        </div>
+        <div>
+          <p>Das Fremde is a colony of robotic agents who create their own language. Their culture is then exposed to the disruption from visitors: human beings. Will the agents’ culture evolve, incorporating our culture into theirs? Will the audience feel empathy with this new species? Is a dialogue possible when both languages and appearance are totally different? Das Fremde deeply questions our relationship to artificial intelligence and machines. Through the installation, robots and humans have a chance to share time and space for a moment of reflection and poetry.</p>
+          <p class="credits">Concept &amp; Realisation: Michael Spranger &amp; Stéphane Noël<br>AI Programming: Michael Spranger (<a href="https://www.sonycsl.co.jp/">Sony Computer Science Laboratories Inc.</a>)<br>Visualisations: <a href="http://www.supermafia.com/">Supermafia</a><br>Special thanks to Laurent Novac (<a href="http://www.garagecube.com/">GarageCUBE</a>)<br>Production: Michael Spranger &amp; Stéphane Noël, in co-production with <a href="http://digitalbrainstorming.ch/">Digital Brainstorming</a> (Zurich). Made with the support of <a href="http://www.migros-kulturprozent.ch/de/home">Migros Cultural Percentage</a>, <a href="http://www.art.fondation.nestle.ch/">Fondation Nestlé pour l’Art</a>, <a href="http://www.ernst-goehner-stiftung.ch/">Ernst Göhner Stiftung</a> &amp; <a href="http://www.vd.ch/culture/">Canton de Vaud</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dates">
+      <div class="container">
+        <h2>Das Fremde was here</h2>
+        <article class="event"><h3>19 September 2020 • Yamagata Biennale (JP)</h3><p>Das Fremde was invited to join the 2020 <a href="https://biennale.tuad.ac.jp/program/174">Yamagata Biennale</a> and continue its cultural exploration in a new environment. Since the Covid-19 pandemic disallowed the public to visit the colony in person, three agents attended via Zoom and met their audience remotely.</p></article>
+        <article class="event"><h3>16+17 May 2019 • Technarte • Bilbao (ES)</h3><p>A presentation of Das Fremde was part of Technarte Bilbao 2019, two days during which artists and technologists from all around the world share their vision of the fusion between art, science and technology.<br>Since 2006, the <a href="https://technarte.org/en/">Technarte International Conferences</a> held in Bilbao and Los Angeles have displayed the most innovative artistic disciplines that use technology as the main tool for creation.</p></article>
+        <article class="event"><h3>9~12 March 2019 • SXSW • Austin (USA)</h3><p>Das Fremde was invited by Sony to be part of its WOW Studio during <a href="https://www.sxsw.com/">South by Southwest</a> 2019.<br>SXSW is an annual conference and festival about music, film, and interactive media, and has been a leader and trend-setter in those fields since its inception in 1987.</p></article>
+        <article class="event"><h3>17 March 2018 • sónar+D • Hong Kong (HK)</h3><p>Respected by music fans the world over since its launch in Barcelona in 1994 for its eclectic lineup, high-quality production and unwavering support for legendary and pioneering electronic artists, <a href="https://sonarhongkong.com/">Sónar</a> represents another major coup for Hong Kong’s cultural scene. Linking music, creativity and technology, Sónar has a well-earned reputation for uniting electronic music lovers and creative people from different disciplines and communities, offering a unique platform for cultural collaboration.</p></article>
+        <article class="event"><h3>1~3 December 2017 • Gwangju Media Art Festival 2017 광주미디어아트페스티벌 • Gwangju (KR)</h3><p>2017 <a href="http://103.60.125.13/cf/Board/8142/detailView.do">광주미디어아트페스티벌</a> &lt;인간X기계 시스템&gt;.<br>12월 1일부터 3일까지 빛고을시민문화관 일원에서 열릴 2017광주미디어아트페스티벌 참여작가 소개합니다. 기대하셔도 좋습니다…</p></article>
+        <article class="event"><h3>10~12 November 2017 • Gotenyama Art + Technology Week • Tokyo (JP)</h3><p>御殿山トラストシティでは、11月10日（金）、11日（土）、12日（日）の3日間、「<a href="http://www.trustcity-g.com/3100">GOTENYAMA ART &amp; TECHNOLOGY WEEK 2017</a>」を開催します。期間中は、御殿山の森がアート＆テクノロジーを体験できる未知の空間に。</p></article>
+        <article class="event"><h3>3+4 December 2016 • Festival Les Urbaines • Lausanne (CH)</h3><p><a href="http://www.urbaines.ch/">Les Urbaines</a> is a festival dedicated to staging the most contemporary artistic practices, in a broad spectrum ranging from performing to visual arts and music, and so much more… There are no headliners and everything is free! Das Fremde came home to Lausanne and its agents could be visited at Espace Démart.</p></article>
+        <article class="event"><h3>15~20 November 2016 • Digital Brainstorming • Zürich (CH)</h3><p>What is the relation between man and machine? Can humans feel empathy towards artificial intelligences? Under the title “Us &amp; Them”, <a href="http://digitalbrainstorming.ch/de/program/usthem">Digital Brainstorming</a> presented an exhibition featuring two robotic installations at Kunstraum Walcheturm in Zurich.</p></article>
+        <article class="event"><h3>4+5 November 2016 • State Festival • Berlin (DE)</h3><p>A teaser version of Das Fremde was presented during <a href="http://www.statefestival.org/">STATE Festival</a>. For its second edition, the festival invited scientists, artists, makers, thinkers, doers and the curious public to explore the state of emotion &amp; the sentimental machine.</p></article>
+      </div>
+    </section>
+
+    <section id="press">
+      <div class="container">
+        <h2>What has been said about Das Fremde…</h2>
+        <ul class="press-list">
+          <li><a href="https://www.youtube.com/watch?v=_gcZb_v7AwE">Sony at SXSW 2019: Das Fremde (20 March 2019) • VIDEO</a></li>
+          <li><a href="https://www.youtube.com/watch?v=vwxn75dcaEQ">The FAKE Magazine (14 March 2019) • VIDEO</a></li>
+          <li><a href="https://www.cnet.com/news/sxsw-2019-the-weirdest-sights-from-the-worlds-largest-culture-fest/">c|net (14 March 2019)</a></li>
+          <li><a href="https://ledge.ai/2019-03-11-13807223905c85f2fe9d298/">Ledge.ai AI:人工知能特化型メディア (11 March 2019)</a></li>
+          <li><a href="https://markets.on.nytimes.com/research/stocks/news/press_release.asp?docTag=201902220800PR_NEWS_USPRX____SF62162&amp;feedID=600&amp;press_symbol=256588">The New York Times (press release 22 February 2019)</a></li>
+          <li><a href="https://www.scmp.com/culture/music/article/2136272/sonard-hong-kong-ai-robot-sophia-leafcutter-john-preview-creative-tech">South China Morning Post (9 March 2018)</a></li>
+          <li><a href="http://www.srf.ch/kultur/kunst/dabei-sein-wenn-roboter-sprechen-lernen">SRF Digital (17 November 2016)</a></li>
+          <li><a href="https://www.youtube.com/watch?v=3BxZL7ZXyO4">Digital Brainstorming (17 November 2016) • VIDEO</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container bios">
+        <img class="bio-image" src="assets/michael-spranger.jpg" alt="Michael Spranger">
+        <p class="bio"><strong><a href="https://sites.google.com/site/michaelspranger/">Michael Spranger</a></strong> (DE) is a roboticist by training, with extensive experience in research on, and construction of, autonomous systems, including research on robot perception, world modelling and behaviour control. He currently holds a position as researcher at the Sony Computer Science Laboratories (Tokyo), a small think tank on future technologies that challenges traditional boundaries in science, technology, and society. His work focuses on artificial language evolution, computational cognitive semantics and robotics. Michael Spranger has also been involved in art projects on the border of science and technology for a long time, from opera performances, to video and robot installations.</p>
+        <img class="bio-image" src="assets/stephane-noel.jpg" alt="Stéphane Noël">
+        <p class="bio"><strong><a href="http://stephanenoel.xxx/">Stéphane Noël</a></strong> (CH) has worked mostly as an independent producer and curator of contemporary performing arts as well as he has directed and curated a couple of interdisciplinary art festivals. His practice started to encompass writing about art, urbanism and new technologies, which led him to join the artistic and editorial board of Gaîté Lyrique in Paris (2009–2011) and act as an advisor for European.Lab. After twenty years in cultural management, he now works as a screenwriter and as an artist.</p>
+        <p class="contact">email: <a href="mailto:readme@dasfremde.world">readme@dasfremde.world</a> — project page: <a href="https://www.facebook.com/dasfremde">facebook.com/dasfremde</a></p>
+      </div>
+    </section>
+  </main>
+  <footer></footer>
+  <script>
+    const button=document.querySelector('.menu-button'),menu=document.querySelector('nav'),links=[...menu.querySelectorAll('a')],sections=[...document.querySelectorAll('main section')];
+    button.addEventListener('click',()=>{const open=menu.classList.toggle('open');button.setAttribute('aria-expanded',open)});
+    links.forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');button.setAttribute('aria-expanded','false')}));
+    const mark=()=>{let current='home';for(const s of sections)if(scrollY>=s.offsetTop-120)current=s.id;links.forEach(a=>a.classList.toggle('active',a.hash==='#'+current))};
+    addEventListener('scroll',mark,{passive:true});mark();
+  </script>
+</body>
+</html>
